@@ -37,4 +37,13 @@ public class PlayerController : MonoBehaviour
 
         transform.LookAt(hitPoint);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Finish" && Input.GetKey(KeyCode.F))
+        {
+            Debug.Log("cocaine");
+            // Interact
+        }
+    }
 }
