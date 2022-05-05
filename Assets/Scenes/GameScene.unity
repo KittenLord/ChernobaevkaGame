@@ -350,6 +350,9 @@ MonoBehaviour:
   Speed: 4
   SmoothTime: 0.5
   PlaneLayer: 6
+  DeactivateMovement: 0
+  DeactivateRotation: 0
+  CanInteract: 1
 --- !u!4 &249777766
 Transform:
   m_ObjectHideFlags: 0
@@ -537,7 +540,7 @@ GameObject:
   - component: {fileID: 787412423}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Finish
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
