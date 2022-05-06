@@ -2,14 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet
+public class Bullet : MonoBehaviour
 {
-    public Gun Gun;
+    public float Speed;
 
-    public float Damage;
-    public Bullet(Gun gun, float damage)
+
+    public Gun Gun;
+    private Vector3 Direction;
+
+    private float CurrentLifetime;
+    private float FinishLifetime;
+
+    private void Start()
+    {
+        CurrentLifetime = 0;
+        FinishLifetime = (Time.fixedDeltaTime * 50) * 25;
+    }
+
+    private void Update()
+    {
+        transform.Translate(Direction * Speed * Time.deltaTime); 
+    }
+
+    private void FixedUpdate()
+    {
+        CurrentLifetime += Time.fixedDeltaTime;
+        if(CurrentLifetime >= FinishLifetime)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetBullet(Gun gun, Vector3 dir)
     {
         Gun = gun;
-        Damage = damage;
+        Direction = dir;
     }
 }
