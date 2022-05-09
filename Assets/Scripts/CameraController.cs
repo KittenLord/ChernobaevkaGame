@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         ZoomDirection = -CameraOffset.normalized;
-        Debug.Log(CameraOffset.magnitude);
     }
     
     void Update()

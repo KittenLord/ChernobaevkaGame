@@ -36,12 +36,12 @@ public class PlayerController : MonoBehaviour
         Gun = new Gun("Gun", 1,         // Ammo
                           false,        // Automatic
                              15,         // Damage
-                             10,        // Shooting Speed
+                             0,        // Shooting Speed
                             30,         // Recoil
                              1,         // Max Ammo
                             40,         // Accuracy
                              10,        // Shot Count
-                             5          // Reload Time (in seconds)
+                             0          // Reload Time (in seconds)
         );         
 
 
@@ -62,8 +62,6 @@ public class PlayerController : MonoBehaviour
             transform.position = nextPosition;
         }
 
-
-
         // Rotation Detection
         if (!DeactivateRotation)
         {
@@ -78,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private void FixedUpdate() // Executing shooting in FixedUpdate for AddForce to work correctly
+    private void FixedUpdate() // Executing stuff in FixedUpdate for physics to work correctly
     {
         // Shooting Detection
         if (!DeactivateShooting && Input.GetMouseButton(0))
@@ -104,8 +102,6 @@ public class PlayerController : MonoBehaviour
         {
             IsHolding = false;
         }
-
-
 
         LastShot++; // Shooting speed timer
 

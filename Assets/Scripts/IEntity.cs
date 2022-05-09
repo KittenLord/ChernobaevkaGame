@@ -9,6 +9,8 @@ public interface IEntity
 
     public event Globals.EntityDie OnDeath;
     public event Globals.EntityDamage OnDamage;
+
+    //public void Damage(Bullet b);
 }
 
 public abstract class Entity : MonoBehaviour, IEntity
@@ -19,7 +21,7 @@ public abstract class Entity : MonoBehaviour, IEntity
     public event Globals.EntityDie OnDeath;
     public event Globals.EntityDamage OnDamage;
 
-    public void Damage(Bullet bullet)
+    public void ReduceHealth(Bullet bullet)
     {
         var damage = bullet.Gun.Damage;
 
@@ -33,11 +35,22 @@ public abstract class Entity : MonoBehaviour, IEntity
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Awake()
     {
-        if(other.tag == "Bullet")
+        OnDamage += ReduceHealth;
+    }
+
+    public void Damage(Bullet b)
+    {
+        OnDamage.Invoke(b);
+    }
+
+    protected virtual void OnCollisionEnter(Collision other)
+    {
+        if(other.transform.tag == "Bullet")
         {
-            OnDamage.Invoke(other.GetComponent<Bullet>());
+            OnDamage.Invoke(other.gameObject.GetComponent<Bullet>());
+            Destroy(other.gameObject);
         }
     }
 }

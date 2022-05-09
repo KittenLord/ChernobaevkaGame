@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Direction * Speed * Time.deltaTime); 
+        transform.Translate(Direction * Speed * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -38,4 +38,14 @@ public class Bullet : MonoBehaviour
         Gun = gun;
         Direction = dir;
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    var target = collision.gameObject.GetComponent<IEntity>();
+    //    if(target != null)
+    //    {
+    //        target.Damage(this);
+    //    }
+    //    Destroy(gameObject);
+    //}
 }

@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class PlayerEntity : Entity
 {
-
-
     void Start()
     {
-        OnDamage += Damage;
         Health = 1000;
         OnDamage += (Bullet b) =>
         {
