@@ -40,8 +40,8 @@ public class SoldierEntity : Entity
                              100,        // Shooting Speed
                             30,         // Recoil
                              1,         // Max Ammo
-                            40,         // Accuracy
-                             10,        // Shot Count
+                            10,         // Accuracy
+                             1,        // Shot Count
                              0          // Reload Time (in seconds)
         );
     }
@@ -61,7 +61,7 @@ public class SoldierEntity : Entity
 
             transform.Rotate(new Vector3(0, direction * TurningSpeed, 0));
 
-            if (Vector3.Angle(transform.forward, mainTarget.transform.position - transform.position) <= 5)
+            if (Vector3.Angle(transform.forward, mainTarget.transform.position - transform.position) <= 20)
             {
                 if(LastShot >= Gun.BaseShootingSpeed)
                 {

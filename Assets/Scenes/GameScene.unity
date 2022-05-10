@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0
-  TurningSpeed: 6
+  TurningSpeed: 15
   SmoothTime: 0
   ShootPoint: {fileID: 2068702049}
   BulletPrefab: {fileID: 5598296547627796670, guid: f192033a59d0f4f4fb807e168b75b46f, type: 3}
@@ -592,7 +592,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &270149478
 GameObject:
