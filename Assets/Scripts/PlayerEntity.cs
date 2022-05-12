@@ -9,7 +9,7 @@ public class PlayerEntity : Entity
         Health = 1000;
         OnDamage += (Bullet b) =>
         {
-            Debug.Log(Health);
+            //Debug.Log(Health);
         };
     }
 

@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
 
     private float CurrentLifetime;
     private float FinishLifetime;
+    private List<string> IgnoreList;
+    private List<string> ImpenetrateList;
 
     private void Start()
     {
@@ -33,19 +35,26 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void SetBullet(Gun gun, Vector3 dir)
+    public void SetBullet(Gun gun, Vector3 dir, List<string> ignoreList, List<string> impenetrateList)
     {
+        ImpenetrateList = new List<string>(Globals.ImpenetrableObjectsTags);
         Gun = gun;
         Direction = dir;
+        IgnoreList = ignoreList;
+        if (impenetrateList != null) ImpenetrateList.AddRange(impenetrateList);
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    var target = collision.gameObject.GetComponent<IEntity>();
-    //    if(target != null)
-    //    {
-    //        target.Damage(this);
-    //    }
-    //    Destroy(gameObject);
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        var target = collision.gameObject.GetComponent<IEntity>();
+        if(target != null && !IgnoreList.Contains(collision.transform.tag))
+        {
+            target.Damage(this);
+        }
+
+        if (Globals.ImpenetrableObjectsTags.Contains(collision.transform.tag))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

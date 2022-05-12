@@ -23,27 +23,36 @@ public class SoldierEntity : Entity
     private int LastShot;
 
     private Rigidbody rb;
+    private BulletGenerator bg;
+    private MovementUtils mu;
 
     private List<GameObject> targets;
+    private List<GameObject> following;
     private GameObject mainTarget;
+    private GameObject passiveTarget;
 
 
     void Start()
     {
         FieldOfView.radius = Range;
         targets = new List<GameObject>();
+        following = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
+        bg = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BulletGenerator>();
+        mu = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MovementUtils>();
 
         Gun = new Gun("Gun", 1,         // Ammo
                           false,        // Automatic
                              15,         // Damage
                              100,        // Shooting Speed
-                            30,         // Recoil
+                            150,         // Recoil
                              1,         // Max Ammo
                             10,         // Accuracy
                              1,        // Shot Count
                              0          // Reload Time (in seconds)
         );
+
+        passiveTarget = GameObject.FindGameObjectWithTag("Base");
     }
 
     void Update()
@@ -57,42 +66,66 @@ public class SoldierEntity : Entity
 
         if (mainTarget != null)
         {
-            var direction = AngleDir(transform.forward, (mainTarget.transform.position - transform.position).normalized);
+            mu.RotateTowards(mainTarget, transform, TurningSpeed);
 
-            transform.Rotate(new Vector3(0, direction * TurningSpeed, 0));
+            var angle = Vector3.Angle(transform.forward, mainTarget.transform.position - transform.position);
 
-            if (Vector3.Angle(transform.forward, mainTarget.transform.position - transform.position) <= 20)
+            if (angle <= 5)
             {
                 if(LastShot >= Gun.BaseShootingSpeed)
                 {
                     LastShot = 0;
-                    Shoot();
+                    bg.Shoot(Gun, ShootPoint, BulletHolder, rb, new List<string> { "Soldier" });
                 }
             }
         }
-    }
+        else
+        {
+            mu.RotateTowards(passiveTarget, transform, TurningSpeed);
+
+            var angle = Vector3.Angle(transform.forward, passiveTarget.transform.position - transform.position);
+
+            if (angle <= 5)
+            {
+                var direction = transform.forward;
+
+                if(following.Count != 0)
+                {
+                    //GameObject closestFollowing = following[0];
+                    //foreach (var f in following)
+                    //{
+                    //    if((f.transform.position - transform.position).magnitude < (closestFollowing.transform.position - transform.position).magnitude)
+                    //    {
+                    //        closestFollowing = f;
+                    //    }
+                    //}
 
 
-    public void Shoot()
-    {
-        for (int i = 0; i < Gun.ShotCount; i++)
-            GenerateBullet();
 
-        rb.AddForce(-transform.forward * Gun.Recoil);
-    }
+                    //direction += dir;
 
-    public void GenerateBullet()
-    {
-        var bullet = Instantiate<Bullet>(BulletPrefab, ShootPoint.position, Quaternion.identity, BulletHolder);
+                    List<GameObject> groupMembers = new List<GameObject>(following);
+                    groupMembers.Add(gameObject);
 
-        var direction = ShootPoint.transform.forward;
+                    Vector3 average = Vector3.zero;
+                    foreach (var v in groupMembers)
+                    {
+                        average += v.transform.position;
+                    }
+                    average /= (float)groupMembers.Count;
 
-        float min = -Gun.Accuracy / 2.0f;
-        float max = Gun.Accuracy / 2.0f;
+                    var dir = (average - transform.position).normalized;
 
-        direction = Quaternion.Euler(new Vector3(Random.Range(min, max) / 10.0f, Random.Range(min, max), 0)) * direction;
+                    if ((average - transform.position).magnitude < 1.5) dir *= -1;
 
-        bullet.SetBullet(Gun, direction);
+                    direction += dir;
+                }
+
+                mu.MoveInDirection(transform, direction, Speed, ref velocity, SmoothTime);
+            }
+
+        }
+        
     }
 
     private void SetTarget()
@@ -100,6 +133,7 @@ public class SoldierEntity : Entity
         if (targets.Count == 0)
         {
             mainTarget = null;
+            return;
         }
 
         int probabilityPool = 0;
@@ -115,7 +149,7 @@ public class SoldierEntity : Entity
         {
             var probability = Globals.GetTargetPriority(t.tag);
 
-            if(probabilityPool >= current && probabilityPool < probability)
+            if(result >= current && result < current + probability)
             {
                 mainTarget = t;
                 return;
@@ -135,11 +169,14 @@ public class SoldierEntity : Entity
                 SetTarget();
             }
         }
-    }
 
-    public static float AngleDir(Vector3 A, Vector3 B)
-    {
-        return -A.x * B.z + A.z * B.x;
+        if(other.tag == "Soldier")
+        {
+            if (!following.Contains(other.gameObject))
+            {
+                following.Add(other.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -150,6 +187,14 @@ public class SoldierEntity : Entity
             {
                 targets.Remove(other.gameObject);
                 SetTarget();
+            }
+        }
+
+        if (other.tag == "Soldier")
+        {
+            if (following.Contains(other.gameObject))
+            {
+                following.Remove(other.gameObject);
             }
         }
     }

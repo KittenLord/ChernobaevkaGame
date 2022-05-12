@@ -24,4 +24,11 @@ public static class Globals
     }
 
     public static List<string> EnemyTargetTags = new List<string> { "Base", "Player"};
+
+    public static List<string> ImpenetrableObjectsTags = new List<string> { "" };
+
+    public static float AngleDir(Vector3 A, Vector3 B)
+    {
+        return -A.x * B.z + A.z * B.x;
+    }
 }

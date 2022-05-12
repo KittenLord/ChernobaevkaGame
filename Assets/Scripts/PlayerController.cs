@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
+    private BulletGenerator bg;
+    private MovementUtils mu;
+
 
 
     void Start()
@@ -46,9 +49,9 @@ public class PlayerController : MonoBehaviour
 
 
         rb = GetComponent<Rigidbody>();
+        bg = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BulletGenerator>();
+        mu = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MovementUtils>();
     }
-
-
 
     void Update()
     {
@@ -57,9 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             var direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-            var nextPosition = Vector3.SmoothDamp(transform.position, transform.position + direction * Speed, ref velocity, SmoothTime);
-
-            transform.position = nextPosition;
+            mu.MoveInDirection(transform, direction, Speed, ref velocity, SmoothTime);
         }
 
         // Rotation Detection
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviour
                     {
                         LastShot = 0; // Last shot is the timer for gun's shooting speed - the lower ShootingSpeed parameter is, the faster the gun shoots
                         IsHolding = true;
-                        Shoot();
+                        bg.Shoot(Gun, ShootPoint, BulletHolder, rb, new List<string> { "Base", "Player"});
                     }
                 }
             }
@@ -127,30 +128,6 @@ public class PlayerController : MonoBehaviour
     {
         IsReloading = false;
         Gun.Ammo = Gun.MaxAmmo;
-    }
-
-    public void Shoot()
-    {
-        for(int i = 0; i < Gun.ShotCount; i++)
-            GenerateBullet();
-
-        rb.AddForce(-transform.forward * Gun.Recoil);
-
-        Gun.Ammo--;
-    }
-
-    public void GenerateBullet()
-    {
-        var bullet = Instantiate<Bullet>(BulletPrefab, ShootPoint.position, Quaternion.identity, BulletHolder);
-
-        var direction = ShootPoint.transform.forward;
-
-        float min = -Gun.Accuracy / 2.0f;
-        float max = Gun.Accuracy / 2.0f;
-
-        direction = Quaternion.Euler(new Vector3(Random.Range(min, max) / 10.0f, Random.Range(min, max), 0)) * direction;
-
-        bullet.SetBullet(Gun, direction);
     }
 
 
