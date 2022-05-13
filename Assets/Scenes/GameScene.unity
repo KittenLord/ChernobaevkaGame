@@ -2075,6 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b681014b87f919049bae95cd760aea65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectileHolder: {fileID: 1188294296}
   BulletPrefab: {fileID: 5598296547627796670, guid: f192033a59d0f4f4fb807e168b75b46f, type: 3}
 --- !u!4 &1238406170
 Transform:

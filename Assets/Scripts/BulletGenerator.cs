@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class BulletGenerator : MonoBehaviour
 {
+    public Transform ProjectileHolder;
+
     public Bullet BulletPrefab;
+
+    private List<Projectile> ProjectilesList = new List<Projectile>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ProjectilesList.Add(BulletPrefab);
     }
 
     // Update is called once per frame
@@ -19,27 +23,29 @@ public class BulletGenerator : MonoBehaviour
     }
 
 
-    public void Shoot(Gun gun, Transform shootPoint, Transform bulletHolder, Rigidbody rb, List<string> ignoreList)
+    public void Shoot(Gun gun, Transform shootPoint, Rigidbody rb, List<string> ignoreList)
     {
         for (int i = 0; i < gun.ShotCount; i++)
-            GenerateBullet(gun, shootPoint, bulletHolder, ignoreList);
+            GenerateProjectile(gun, shootPoint, ignoreList);
 
         rb.AddForce(-transform.forward * gun.Recoil);
 
         gun.Ammo--;
     }
 
-    public void GenerateBullet(Gun gun, Transform shootPoint, Transform bulletHolder, List<string> ignoreList)
+    public void GenerateProjectile(Gun gun, Transform shootPoint, List<string> ignoreList)
     {
-        var bullet = Instantiate<Bullet>(BulletPrefab, shootPoint.position, Quaternion.identity, bulletHolder);
+        var projectilePrefab = ProjectilesList.Find(p => p.Type == gun.AmmoType);
+
+        var projectileGO = Instantiate<Projectile>(projectilePrefab, shootPoint.position, Quaternion.identity, ProjectileHolder);
 
         var direction = shootPoint.transform.forward;
 
         float min = -gun.Accuracy / 2.0f;
         float max = gun.Accuracy / 2.0f;
 
-        direction = Quaternion.Euler(new Vector3(Random.Range(min, max) / 10.0f, Random.Range(min, max), 0)) * direction;
+        direction = Quaternion.Euler(new Vector3(0 /*Random.Range(min, max) / 10.0f*/, Random.Range(min, max), 0)) * direction;
 
-        bullet.SetBullet(gun, direction, ignoreList, new List<string>());
+        projectileGO.SetProjectile(gun, direction, ignoreList, new List<string>());
     }
 }

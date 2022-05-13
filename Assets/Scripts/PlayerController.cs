@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
                     {
                         LastShot = 0; // Last shot is the timer for gun's shooting speed - the lower ShootingSpeed parameter is, the faster the gun shoots
                         IsHolding = true;
-                        bg.Shoot(Gun, ShootPoint, BulletHolder, rb, new List<string> { "Base", "Player"});
+                        bg.Shoot(Gun, ShootPoint, rb, new List<string> { "Base", "Player"});
                     }
                 }
             }

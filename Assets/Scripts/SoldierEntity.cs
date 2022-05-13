@@ -77,7 +77,7 @@ public class SoldierEntity : Entity
                 if(LastShot >= Gun.BaseShootingSpeed)
                 {
                     LastShot = 0;
-                    bg.Shoot(Gun, ShootPoint, BulletHolder, rb, new List<string> { "Soldier" });
+                    bg.Shoot(Gun, ShootPoint, rb, new List<string> { "Soldier" });
                 }
             }
         }
