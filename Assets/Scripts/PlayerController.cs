@@ -38,13 +38,15 @@ public class PlayerController : MonoBehaviour
     {
         Gun = new Gun("Gun", 1,         // Ammo
                           false,        // Automatic
-                             15,         // Damage
-                             0,        // Shooting Speed
+                AmmoType.Bullet,        // Ammo Type
+                             15,        // Damage
+                             0,         // Shooting Speed
                             30,         // Recoil
                              1,         // Max Ammo
                             40,         // Accuracy
                              10,        // Shot Count
-                             0          // Reload Time (in seconds)
+                             0,         // Reload Time (in seconds)
+                             50         // Bullet speed
         );         
 
 

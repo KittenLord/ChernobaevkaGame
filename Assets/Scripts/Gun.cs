@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum AmmoType
+{
+    Bullet, Grenade
+}
+
 public class Gun
 {
     public readonly string Name;
@@ -10,6 +16,7 @@ public class Gun
 
     public readonly bool IsAutomatic;
 
+    public AmmoType AmmoType;
 
 
     public readonly float BaseDamage; // TODO: Implement rocket/grenade launcher support
@@ -19,6 +26,7 @@ public class Gun
     public readonly float BaseAccuracy;
     public readonly int   BaseShotCount;
     public readonly float BaseReloadTime;
+    public readonly float BaseBulletSpeed;
 
 
 
@@ -29,13 +37,15 @@ public class Gun
     public int MaxAmmo => BaseMaxAmmo + Upgrades.MaxAmmoUpgrade;                   // More => Better
     public float Accuracy => BaseAccuracy + Upgrades.AccuracyUpgrade;                // Less => Better
     public float ShotCount => BaseShotCount + Upgrades.ShotCountUpgrade;             // More => Better
-    public float ReloadTime => BaseReloadTime + Upgrades.ReloadTimeUpgrade;
+    public float ReloadTime => BaseReloadTime + Upgrades.ReloadTimeUpgrade;         // Less => Better
+    public float BulletSpeed => BaseBulletSpeed + Upgrades.BulletSpeedUpgrade;      // More => Better (?)
 
-    public Gun(string name, int ammo, bool isAutomatic, float baseDamage, float baseShootingSpeed, float baseRecoil, int baseMaxAmmo, float baseAccuracy, int baseShotCount, float baseReloadTime)
+    public Gun(string name, int ammo, bool isAutomatic, AmmoType ammoType, float baseDamage, float baseShootingSpeed, float baseRecoil, int baseMaxAmmo, float baseAccuracy, int baseShotCount, float baseReloadTime, float baseBulletSpeed)
     {
         Name = name;
         Ammo = ammo;
         IsAutomatic = isAutomatic;
+        AmmoType = ammoType;
 
 
         BaseDamage = baseDamage;
@@ -45,9 +55,10 @@ public class Gun
         BaseAccuracy = baseAccuracy;
         BaseShotCount = baseShotCount;
         BaseReloadTime = baseReloadTime;
+        BaseBulletSpeed = baseBulletSpeed;
 
 
-        Upgrades = new GunUpgrades(0, 0, 0, 0, 0, 0, 0);
+        Upgrades = new GunUpgrades(0, 0, 0, 0, 0, 0, 0, 0);
     }
 }
 
@@ -60,8 +71,9 @@ public struct GunUpgrades
     public float AccuracyUpgrade;
     public int   ShotCountUpgrade;
     public float ReloadTimeUpgrade;
+    public float BulletSpeedUpgrade;
 
-    public GunUpgrades(float damageUpgrade, float shootingSpeedUpgrade, float recoilUpgrade, int maxAmmoUpgrade, float accuracyUpgrade, int shotCount, float reloadTime)
+    public GunUpgrades(float damageUpgrade, float shootingSpeedUpgrade, float recoilUpgrade, int maxAmmoUpgrade, float accuracyUpgrade, int shotCount, float reloadTime, float bulletSpeed)
     {
         DamageUpgrade = damageUpgrade;
         ShootingSpeedUpgrade = shootingSpeedUpgrade;
@@ -70,6 +82,7 @@ public struct GunUpgrades
         AccuracyUpgrade = accuracyUpgrade;
         ShotCountUpgrade = shotCount;
         ReloadTimeUpgrade = reloadTime;
+        BulletSpeedUpgrade = bulletSpeed;
     }
 
 }
