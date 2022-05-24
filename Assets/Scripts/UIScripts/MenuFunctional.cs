@@ -7,44 +7,16 @@ using UnityEngine.UI;
 
 public class MenuFunctional : MonoBehaviour
 {
-    [SerializeField]
-    GameObject ChooseLevelWindow, SpinSlotMachineWindow, UpgradeWindow, ShopWindow, SettingsWindow;
-    [SerializeField]
-    Button ChooseLevelButton, SpinSlotMachineButton, UpgradeButton, ShopButton;
+    public GameObject requiredWindow;
+    public Button closeButton;
 
-    private void Start()
+   
+    public void ButtonPressed()
     {
-        ChooseLevelWindow.active = false;
-        SpinSlotMachineWindow.active = false;
-        UpgradeWindow.active = false;
-        ShopWindow.active = false;
-        SettingsWindow.active = false;
-
+        requiredWindow.SetActive(true);
     }
-
-    private void Update()
+    public void CloseButtonPressed()
     {
-        
-    }
-    public void ChooseWindow()
-    {
-        ChooseLevelWindow.active = true;
-
-    }
-    public void SpinSlotMachine()
-    {
-        SpinSlotMachineWindow.active = true;
-    }
-    public void Upgrade()
-    {
-        UpgradeWindow.active = true;
-    }
-    public void Shop()
-    {
-        ShopWindow.active = true;
-    }
-    public void Settings()
-    {
-        SettingsWindow.active = true;
+        requiredWindow.SetActive(false);
     }
 }
