@@ -12,26 +12,26 @@ public class ShopFunctional : MonoBehaviour
     public void WeaponButtonPressed()
     {
         WeaponWindow.SetActive(true);
-        
-        PlayerWindow.active = false;
-        UtilityWindow.active = false;
-        
+
+        PlayerWindow.SetActive(false);
+        UtilityWindow.SetActive(false);
+
     }
     public void PlayerButtonPressed()
     {
         PlayerWindow.SetActive(true);
         
-        WeaponWindow.active = false;
-        UtilityWindow.active = false;
-        
+        WeaponWindow.SetActive(false);
+        UtilityWindow.SetActive(false);
+
     }
     public void UtilityButtonPressed()
     {
         UtilityWindow.SetActive(true);
         
         
-        PlayerWindow.active = false;
-        WeaponWindow.active = false;
-        
+        PlayerWindow.SetActive(false);
+        WeaponWindow.SetActive(false);
+
     }
 }

@@ -11,14 +11,14 @@ public class Projectile : MonoBehaviour
     protected Vector3 Direction;
 
     protected float CurrentLifetime;
-    protected float FinishLifetime;
+    protected float FinishLifetime = 3; // Time in seconds
     protected List<string> IgnoreList;
     protected List<string> ImpenetrateList;
 
     private void Awake()
     {
         CurrentLifetime = 0;
-        FinishLifetime = (Time.fixedDeltaTime * 50) * 3;
+        FinishLifetime *= Time.fixedDeltaTime * 50;
     }
 
     private void FixedUpdate()

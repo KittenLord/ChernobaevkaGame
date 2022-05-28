@@ -15,12 +15,10 @@ public static class Globals
             case "Base":
                 return 100;
             case "Player":
-                return 70;
+                return 100;
             default:
-                break;
+                return 0;
         }
-
-        return 0;
     }
 
     public static List<string> EnemyTargetTags = new List<string> { "Base", "Player"};
@@ -29,6 +27,24 @@ public static class Globals
 
     public static float AngleDir(Vector3 A, Vector3 B)
     {
-        return -A.x * B.z + A.z * B.x;
+        return A.x * -B.z + A.z * B.x;
     }
+
+    public static Vector3 GetAverageGroupPosition(List<GameObject> members)
+    {
+        List<GameObject> groupMembers = new List<GameObject>(members);
+        //groupMembers.Add(thisObject);
+
+        Vector3 average = Vector3.zero;
+        foreach (var v in groupMembers)
+        {
+            average += v.transform.position;
+        }
+        average /= (float)groupMembers.Count;
+
+        return average;
+    }
+
+    
+
 }
