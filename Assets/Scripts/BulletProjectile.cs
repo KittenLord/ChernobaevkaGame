@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : Projectile
+public class BulletProjectile : Projectile
 {
+    //public override AmmoType Type { get; set; } = AmmoType.Bullet;
+
     private void Start()
     {
 

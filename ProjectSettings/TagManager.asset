@@ -9,6 +9,7 @@ TagManager:
   - Base
   - Soldier
   - GameManager
+  - Plane
   layers:
   - Default
   - TransparentFX

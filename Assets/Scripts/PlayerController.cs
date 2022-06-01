@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public int PlaneLayer;
     public Transform ShootPoint;
     public Gun Gun;
-    public Bullet BulletPrefab;
+    public BulletProjectile BulletPrefab;
     public Transform BulletHolder;
 
     public bool DeactivateMovement = false;
@@ -38,15 +38,15 @@ public class PlayerController : MonoBehaviour
     {
         Gun = new Gun("Gun", 1,         // Ammo
                           false,        // Automatic
-                AmmoType.Bullet,        // Ammo Type
+                AmmoType.Rocket,        // Ammo Type
                              15,        // Damage
                              0,         // Shooting Speed
                             30,         // Recoil
                              1,         // Max Ammo
-                            40,         // Accuracy
-                             10,        // Shot Count
+                            10,         // Accuracy
+                             1,        // Shot Count
                              0,         // Reload Time (in seconds)
-                             50         // Bullet speed
+                             25         // Bullet speed
         );         
 
 

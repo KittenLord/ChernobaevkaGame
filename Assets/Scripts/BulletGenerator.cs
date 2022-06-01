@@ -6,7 +6,8 @@ public class BulletGenerator : MonoBehaviour
 {
     public Transform ProjectileHolder;
 
-    public Bullet BulletPrefab;
+    public BulletProjectile BulletPrefab;
+    public RocketProjectile RocketPrefab;
 
     private List<Projectile> ProjectilesList = new List<Projectile>();
 
@@ -14,6 +15,7 @@ public class BulletGenerator : MonoBehaviour
     void Start()
     {
         ProjectilesList.Add(BulletPrefab);
+        ProjectilesList.Add(RocketPrefab);
     }
 
     // Update is called once per frame

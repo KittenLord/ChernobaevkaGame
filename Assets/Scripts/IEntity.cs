@@ -10,7 +10,7 @@ public interface IEntity
     public event Globals.EntityDie OnDeath;
     public event Globals.EntityDamage OnDamage;
 
-    public void Damage(Bullet b);
+    public void Damage(Projectile projectile);
 }
 
 public abstract class Entity : MonoBehaviour, IEntity
@@ -21,9 +21,9 @@ public abstract class Entity : MonoBehaviour, IEntity
     public event Globals.EntityDie OnDeath;
     public event Globals.EntityDamage OnDamage;
 
-    public void ReduceHealth(Bullet bullet)
+    public void ReduceHealth(Projectile projectile)
     {
-        var damage = bullet.Gun.Damage;
+        var damage = projectile.Gun.Damage;
 
         damage -= (Armor / 100.0f) * damage;
 
@@ -40,9 +40,9 @@ public abstract class Entity : MonoBehaviour, IEntity
         OnDamage += ReduceHealth;
     }
 
-    public void Damage(Bullet b)
+    public void Damage(Projectile projectile)
     {
-        OnDamage.Invoke(b);
+        OnDamage.Invoke(projectile);
     }
 
     //protected virtual void OnCollisionEnter(Collision other)

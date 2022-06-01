@@ -16,15 +16,15 @@ public class TankEnemy : BaseEnemy
 
         Gun = new Gun("Gun", 1,         // Ammo
                           false,        // Automatic
-                AmmoType.Bullet,        // Ammo Type
-                             15,         // Damage
+                AmmoType.Rocket,        // Ammo Type
+                             20,         // Damage
                              100,        // Shooting Speed
-                            150,         // Recoil
+                            300,         // Recoil
                              1,         // Max Ammo
                             10,         // Accuracy
                              1,        // Shot Count
                              0,          // Reload Time (in seconds)
-                             50         // Bullet Speed
+                             20         // Bullet Speed
         );
     }
 

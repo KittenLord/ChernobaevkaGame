@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 12301970}
   m_Layer: 6
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -736,6 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886439149}
   - component: {fileID: 886439151}
+  - component: {fileID: 886439153}
   - component: {fileID: 886439152}
   - component: {fileID: 886439150}
   m_Layer: 0
@@ -806,7 +807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 2
   TurningSpeed: 1.5
-  SmoothTime: 3
+  SmoothTime: 0.5
   NoticeRadius: 14
   ClosestDistance: 10
   MaxViewDistance: 16
@@ -818,6 +819,18 @@ MonoBehaviour:
   BulletHolder: {fileID: 1188294296}
   Body: {fileID: 1717958196}
   Turret: {fileID: 2110543867}
+--- !u!114 &886439153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886439148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c79f2eccc719fa47876b5172eea8001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,6 +1225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProjectileHolder: {fileID: 1188294296}
   BulletPrefab: {fileID: 5598296547627796670, guid: f192033a59d0f4f4fb807e168b75b46f, type: 3}
+  RocketPrefab: {fileID: -5630085259630232110, guid: 5fda2211c2bb31649ad632888e4ab277, type: 3}
 --- !u!4 &1238406170
 Transform:
   m_ObjectHideFlags: 0
@@ -1603,6 +1617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2059844443}
   - component: {fileID: 2059844442}
+  - component: {fileID: 2059844444}
   - component: {fileID: 2059844441}
   - component: {fileID: 2059844440}
   m_Layer: 0
@@ -1687,6 +1702,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059844444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059844439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c79f2eccc719fa47876b5172eea8001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110543866
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,9 +7,9 @@ public class PlayerEntity : Entity
     void Start()
     {
         Health = 1000;
-        OnDamage += (Bullet b) =>
+        OnDamage += (Projectile p) =>
         {
-            //Debug.Log(Health);
+            Debug.Log(Health);
         };
     }
 

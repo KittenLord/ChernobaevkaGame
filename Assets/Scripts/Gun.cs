@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum AmmoType
 {
-    Bullet, Grenade
+    Bullet, Rocket
 }
 
 public class Gun

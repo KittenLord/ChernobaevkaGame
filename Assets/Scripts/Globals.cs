@@ -6,7 +6,7 @@ public static class Globals
 {
     public delegate void EntityDie();
 
-    public delegate void EntityDamage(Bullet bullet);
+    public delegate void EntityDamage(Projectile projectile);
     public static int GetTargetPriority(string tag)
     {
         if (!EnemyTargetTags.Contains(tag)) return 0;
@@ -23,7 +23,7 @@ public static class Globals
 
     public static List<string> EnemyTargetTags = new List<string> { "Base", "Player"};
 
-    public static List<string> ImpenetrableObjectsTags = new List<string> { "Base" };
+    public static List<string> ImpenetrableObjectsTags = new List<string> { "Base", "Plane" };
 
     public static float AngleDir(Vector3 A, Vector3 B)
     {
