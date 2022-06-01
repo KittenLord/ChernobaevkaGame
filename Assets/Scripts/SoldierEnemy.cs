@@ -72,7 +72,7 @@ public class SoldierEnemy : BaseEnemy
             if (LastShot >= Gun.BaseShootingSpeed && (mainTargetPosition - transform.position).magnitude < NoticeRadius)
             {
                 LastShot = 0;
-                bg.Shoot(Gun, ShootPoint, rb, new List<string> { "Soldier" });
+                bg.Shoot(Gun, ShootPoint, recoilRB, new List<string> { "Soldier" });
             }
         }
 

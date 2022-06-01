@@ -13,7 +13,7 @@ public class BaseEnemy : MonoBehaviour
     public float ClosestDistance;
     public float MaxViewDistance;
 
-    protected Rigidbody rb;
+    protected Rigidbody recoilRB;
     protected BulletGenerator bg;
     protected MovementUtils mu;
 
@@ -29,6 +29,7 @@ public class BaseEnemy : MonoBehaviour
     protected List<GameObject> targets;
     protected List<GameObject> following;
     protected GameObject mainTarget;
+    public GameObject MainTarget => mainTarget;
     protected GameObject baseTarget;
     protected Vector3 mainTargetPosition => new Vector3(mainTarget.transform.position.x, transform.position.y, mainTarget.transform.position.z);
     protected Vector3 velocity;
@@ -42,7 +43,7 @@ public class BaseEnemy : MonoBehaviour
         FieldOfView.radius = NoticeRadius;
         targets = new List<GameObject>();
         following = new List<GameObject>();
-        rb = GetComponent<Rigidbody>();
+        recoilRB = GetComponent<Rigidbody>();
         bg = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BulletGenerator>();
         mu = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MovementUtils>();
         baseTarget = GameObject.FindGameObjectWithTag("Base");
@@ -128,7 +129,7 @@ public class BaseEnemy : MonoBehaviour
     {
         int counter = 0;
 
-        while (counter < 600 && counter >= 0)
+        while (counter < 200 && counter >= 0)
         {
             counter++;
             if ((g.transform.position - transform.position).magnitude > MaxViewDistance)

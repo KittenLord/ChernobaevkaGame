@@ -13,7 +13,7 @@ public static class Globals
         switch (tag)
         {
             case "Base":
-                return 100;
+                return 10;
             case "Player":
                 return 100;
             default:
