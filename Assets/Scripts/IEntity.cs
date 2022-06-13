@@ -16,7 +16,9 @@ public interface IEntity
 public abstract class Entity : MonoBehaviour, IEntity
 {
     public float Health { get; set; }
+    public float EntityHealth;
     public float Armor { get; set; }
+    public float EntityArmor;
 
     public event Globals.EntityDie OnDeath;
     public event Globals.EntityDamage OnDamage;
@@ -38,6 +40,8 @@ public abstract class Entity : MonoBehaviour, IEntity
     public void Awake()
     {
         OnDamage += ReduceHealth;
+        Health = EntityHealth;
+        Armor = EntityArmor;
     }
 
     public void Damage(Projectile projectile)

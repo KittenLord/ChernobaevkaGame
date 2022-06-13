@@ -16,7 +16,7 @@ public class MovementUtils : MonoBehaviour
 
     }
 
-    public void RotateTowards(GameObject target, Transform transform, float TurningSpeed)
+    public void RotateTowards(Vector3 target, Transform transform, float TurningSpeed)
     {
         //var direction = Globals.AngleDir(transform.forward, (target.transform.position - transform.position).normalized);
         //
@@ -29,7 +29,7 @@ public class MovementUtils : MonoBehaviour
         //else
         //    transform.Rotate(new Vector3(0, direction * TurningSpeed, 0));
 
-        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position, TurningSpeed * Mathf.Deg2Rad, 0.0f));
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(target.x, transform.position.y, target.z) - transform.position, TurningSpeed * Mathf.Deg2Rad, 0.0f));
     }
 
     public void MoveInDirection(Transform transform, Vector3 direction, float Speed, ref Vector3 velocity, float SmoothTime)

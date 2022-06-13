@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TankEnemy : BaseEnemy
 {
@@ -11,8 +12,14 @@ public class TankEnemy : BaseEnemy
 
     public Transform Body;
     public Transform Turret;
+
+    public bool DeactivateTurretRotation = false;
+
+    private List<GameObject> civilians = new List<GameObject>();
     void Start()
     {
+        TriggerEnterAction += CivilianTriggerEnter;
+        TriggerExitAction += CivilianTriggerExit;
 
         Gun = new Gun("Gun", 1,         // Ammo
                           false,        // Automatic
@@ -30,6 +37,8 @@ public class TankEnemy : BaseEnemy
 
     private void FixedUpdate()
     {
+        DeactivateMovement = civilians.Any(c => (c.transform.position - transform.position).magnitude > 1.5);
+
         Turret.position = new Vector3(Body.position.x, Turret.position.y, Body.position.z);
 
         LastShot++;
@@ -39,17 +48,16 @@ public class TankEnemy : BaseEnemy
             mainTarget = baseTarget.gameObject;
         }
 
-        mu.RotateTowards(mainTarget, Turret, TurningSpeed);
-
+        if (!DeactivateTurretRotation) mu.RotateTowards(mainTarget.transform.position, Turret, TurningSpeed);
 
         var angle = Vector3.Angle(Turret.forward, mainTargetPosition - Turret.position);
 
         if (angle <= 5)
         {
-            if (LastShot >= Gun.BaseShootingSpeed && (mainTargetPosition - transform.position).magnitude < NoticeRadius)
+            if (LastShot >= Gun.BaseShootingSpeed && (mainTargetPosition - transform.position).magnitude < NoticeRadius && !DeactivateShooting)
             {
                 LastShot = 0;
-                bg.Shoot(Gun, ShootPoint, recoilRB, new List<string> { "Tank" });
+                bg.Shoot(Gun, ShootPoint, recoilRB, new List<string> { "Tank", "Soldier" });
             }
         }
 
@@ -59,7 +67,7 @@ public class TankEnemy : BaseEnemy
 
         if ((mainTarget.transform.position - transform.position).magnitude > ClosestDistance)
         {
-            mu.RotateTowards(mainTarget, transform, TurningSpeed);
+            if(!DeactivateRotation) mu.RotateTowards(mainTarget.transform.position, transform, TurningSpeed);
 
             var a = Vector3.Angle(transform.forward, mainTargetPosition - transform.position);
 
@@ -69,9 +77,31 @@ public class TankEnemy : BaseEnemy
                 Turret.rotation *= Quaternion.Euler(0, 180, 0);
             }
 
-            if (a <= 60)
+            if (a <= 60 && !DeactivateMovement)
             {
                 mu.MoveInDirection(transform, transform.forward, Speed, ref velocity, SmoothTime);
+            }
+        }
+    }
+
+    private void CivilianTriggerEnter(Collider c)
+    {
+        if (c.tag == "Civilian")
+        {
+            if (!civilians.Contains(c.gameObject))
+            {
+                civilians.Add(c.gameObject);
+            }
+        }
+    }
+
+    private void CivilianTriggerExit(Collider c)
+    {
+        if (c.tag == "Civilian")
+        {
+            if (civilians.Contains(c.gameObject))
+            {
+                civilians.Remove(c.gameObject);
             }
         }
     }

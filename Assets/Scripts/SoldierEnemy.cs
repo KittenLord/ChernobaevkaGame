@@ -40,7 +40,7 @@ public class SoldierEnemy : BaseEnemy
             mainTarget = baseTarget.gameObject;
         }
 
-        mu.RotateTowards(mainTarget, transform, TurningSpeed);
+        if(!DeactivateRotation) mu.RotateTowards(mainTarget.transform.position, transform, TurningSpeed);
 
         var angle = Vector3.Angle(transform.forward, mainTargetPosition - transform.position);
 
@@ -67,9 +67,9 @@ public class SoldierEnemy : BaseEnemy
                 direction += transform.forward;
             }
 
-            mu.MoveInDirection(transform, direction.normalized, Speed, ref velocity, SmoothTime);
+            if (!DeactivateMovement) mu.MoveInDirection(transform, direction.normalized, Speed, ref velocity, SmoothTime);
 
-            if (LastShot >= Gun.BaseShootingSpeed && (mainTargetPosition - transform.position).magnitude < NoticeRadius)
+            if (LastShot >= Gun.BaseShootingSpeed && (mainTargetPosition - transform.position).magnitude < NoticeRadius && !DeactivateShooting)
             {
                 LastShot = 0;
                 bg.Shoot(Gun, ShootPoint, recoilRB, new List<string> { "Soldier" });
@@ -77,57 +77,4 @@ public class SoldierEnemy : BaseEnemy
         }
 
     }
-
-
-    #region Old AI
-    //private void FixedUpdate()
-    //{
-    //    LastShot++;
-    //
-    //    if (mainTarget != null)
-    //    {
-    //        mu.RotateTowards(mainTarget, transform, TurningSpeed);
-    //
-    //        var angle = Vector3.Angle(transform.forward, mainTarget.transform.position - transform.position);
-    //
-    //        if (angle <= 5)
-    //        {
-    //            if(LastShot >= Gun.BaseShootingSpeed)
-    //            {
-    //                LastShot = 0;
-    //                bg.Shoot(Gun, ShootPoint, rb, new List<string> { "Soldier" });
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        mu.RotateTowards(passiveTarget, transform, TurningSpeed);
-    //
-    //        var angle = Vector3.Angle(transform.forward, passiveTarget.transform.position - transform.position);
-    //
-    //        if (angle <= 5)
-    //        {
-    //            var direction = transform.forward;
-    //
-    //            if(following.Count != 0)
-    //            {
-    //                var dirToGroup = GetAverageGroupPosition(following) - transform.position;
-    //
-    //                if (dirToGroup.magnitude < 1.5) dirToGroup *= -1;
-    //
-    //                direction += dirToGroup.normalized;
-    //            }
-    //
-    //            mu.MoveInDirection(transform, direction, Speed, ref velocity, SmoothTime);
-    //        }
-    //
-    //    }
-    //    
-    //}
-    #endregion
-
-
-
-
-
 }

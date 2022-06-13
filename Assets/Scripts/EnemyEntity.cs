@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEntity : Entity
+public class EnemyEntity : Entity
 {
-    void Start()
+    protected virtual void Start()
     {
         OnDamage += (Projectile p) =>
         {
@@ -13,7 +13,8 @@ public class PlayerEntity : Entity
 
         OnDeath += () =>
         {
-            Debug.Log("Player ded");
+            Debug.Log($"{gameObject.name} ded");
+            Destroy(gameObject);
         };
     }
 

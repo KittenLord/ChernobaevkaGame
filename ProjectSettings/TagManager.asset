@@ -10,6 +10,9 @@ TagManager:
   - Soldier
   - GameManager
   - Plane
+  - Tank
+  - AllySoldier
+  - Civilian
   layers:
   - Default
   - TransparentFX

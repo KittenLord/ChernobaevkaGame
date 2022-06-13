@@ -15,13 +15,16 @@ public static class Globals
             case "Base":
                 return 10;
             case "Player":
+                return 10;
+            case "AllySoldier":
                 return 100;
             default:
                 return 0;
         }
     }
 
-    public static List<string> EnemyTargetTags = new List<string> { "Base", "Player"};
+    public static List<string> EnemyTargetTags = new List<string> { "Base", "Player", "AllySoldier"};
+    public static List<string> EnemyTags = new List<string> { "Soldier", "Tank" };
 
     public static List<string> ImpenetrableObjectsTags = new List<string> { "Base", "Plane" };
 
